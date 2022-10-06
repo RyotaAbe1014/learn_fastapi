@@ -33,13 +33,13 @@ async def index():
 
 @app.post("/users")
 async def users(users: User):
-    return {users: users}
+    return {"users": users}
 
 @app.post("/rooms")
 async def rooms(rooms: Room):
-    return {rooms: rooms}
+    return {"rooms": rooms}
 
 
 @app.post("/booking")
 async def booking(booking: Booking):
-    return {booking: booking}
+    return {"booking": booking}
