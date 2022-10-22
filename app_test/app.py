@@ -26,14 +26,12 @@ if page == 'users':
         st.json(res.json())
 
 elif page == 'rooms':
-    st.title("会議室APIテスト")
+    st.title("会議室登録画面")
     with st.form(key='room'):
-        room_id: int = random.randint(0, 10)
         room_name: str = st.text_area('会議室名', max_chars=12)
         capacity: int = st.number_input('定員', step=1)
 
         data = {
-            'room_id': room_id,
             'room_name': room_name,
             'capacity': capacity
         }
@@ -44,6 +42,9 @@ elif page == 'rooms':
         st.json(data)
         url = "http://127.0.0.1:8000/rooms"
         res = requests.post(url, data=json.dumps(data))
+        if res.status_code == 200:
+            st.success('会議室の登録が完了しました')
+        st.write(res.status_code)
         st.json(res.json())
 
 elif page == 'bookings':
