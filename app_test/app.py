@@ -7,12 +7,10 @@ import json
 page = st.sidebar.selectbox('めにゅー', ['users', 'rooms', 'bookings'])
 
 if page == 'users':
-    st.title("ユーザーAPIテスト")
+    st.title("ユーザー登録画面")
     with st.form(key='users'):
-        user_id: int = random.randint(0, 10)
         username: str = st.text_area('ユーザー名', max_chars=12)
         data = {
-            'user_id': user_id,
             'username': username
         }
         submit_button = st.form_submit_button(label='送信')
@@ -22,6 +20,9 @@ if page == 'users':
         st.json(data)
         url = "http://127.0.0.1:8000/users"
         res = requests.post(url, data=json.dumps(data))
+        if res.status_code == 200:
+            st.success('ユーザー作成が完了しました')
+        st.write(res.status_code)
         st.json(res.json())
 
 elif page == 'rooms':
