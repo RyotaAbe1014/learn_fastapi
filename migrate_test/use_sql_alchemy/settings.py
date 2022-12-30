@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine
-
+from sqlalchemy.orm import sessionmaker
 
 # MySQL用
 # user_name = "user"
@@ -25,3 +25,6 @@ ENGINE = create_engine(
 )
 
 
+# セッションを作成する
+Session = sessionmaker(bind=ENGINE)
+session = Session()
