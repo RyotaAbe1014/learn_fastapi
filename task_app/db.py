@@ -8,7 +8,7 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 # 接続したいDBの基本情報を設定
 user_name = "root"
 password = "Ryota1014"
-host = "localhost"
+host = "localhost:3306"
 database_name = "my_task_db"
 
 DATABASE = 'mysql://%s:%s@%s/%s?charset=utf8' % (
