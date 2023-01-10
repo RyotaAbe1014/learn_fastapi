@@ -1,26 +1,26 @@
 from fastapi import APIRouter
 from typing import List
-from schemas.task import Task as TaskSchema
-from cruds.task import get_tasks, get_task
+import schemas.task as TaskSchema
+import cruds.task as crud
 from db import session
 
 router = APIRouter()
 
 
-@router.get("/tasks", response_model=List[TaskSchema])
+@router.get("/tasks", response_model=List[TaskSchema.Task])
 async def list_tasks():
-    return get_tasks(session)
+    return crud.get_tasks(session)
 
 
-@router.post("/tasks")
-async def create_task():
-    pass
+@router.post("/tasks", response_model=TaskSchema.Task)
+async def create_task(task: TaskSchema.TaskCreate):
+    return crud.create_task(session, task)
 
 
-@router.get("/tasks/{task_id}", response_model=TaskSchema)
+@router.get("/tasks/{task_id}", response_model=TaskSchema.Task)
 async def detail_task(id: int):
-    return get_task(session, id)
-    
+    return crud.get_task(session, id)
+
 
 @router.put("/tasks/{task_id}")
 async def update_task():
