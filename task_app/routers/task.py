@@ -3,9 +3,9 @@ from typing import List
 import schemas.task as TaskSchema
 import cruds.task as crud
 from db import session
-
+from settings.custom_route import CustomRoute
 router = APIRouter()
-
+router.route_class = CustomRoute
 
 @router.get("/tasks", response_model=List[TaskSchema.Task])
 async def list_tasks():
