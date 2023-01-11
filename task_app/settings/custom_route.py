@@ -2,7 +2,7 @@ import time
 import datetime
 import sys
 import json
-from logging import getLogger, FileHandler, StreamHandler, DEBUG
+from logging import getLogger, FileHandler, DEBUG
 from typing import Callable
 from fastapi import Request, Response
 from fastapi.routing import APIRoute
