@@ -17,3 +17,11 @@ class Task(TaskBase):
 
     class Config:
         orm_mode = True
+
+
+class TaskUpdate(Task):
+    pass
+
+
+class TaskDelete(Task):
+    pass
