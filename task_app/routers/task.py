@@ -7,6 +7,7 @@ from settings.custom_route import CustomRoute
 router = APIRouter()
 router.route_class = CustomRoute
 
+
 @router.get("/tasks", response_model=List[TaskSchema.Task])
 async def list_tasks():
     return crud.get_tasks(session)
@@ -18,15 +19,15 @@ async def create_task(task: TaskSchema.TaskCreate):
 
 
 @router.get("/tasks/{task_id}", response_model=TaskSchema.Task)
-async def detail_task(id: int):
-    return crud.get_task(session, id)
+async def detail_task(task_id: int):
+    return crud.get_task(session, task_id)
 
 
-@router.put("/tasks/{task_id}")
-async def update_task():
-    pass
+@router.put("/tasks/{task_id}", response_model=TaskSchema.Task)
+async def update_task(task: TaskSchema.TaskUpdate, task_id: int):
+    return crud.update_task(session, task_id, task)
 
 
-@router.delete("/tasks/{task_id}")
-async def delete_task():
-    pass
+@router.delete("/tasks/{task_id}",  response_model=TaskSchema.Task)
+async def delete_task(task_id: int):
+    return crud.delete_task(session, task_id)

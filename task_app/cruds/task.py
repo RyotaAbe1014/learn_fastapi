@@ -18,3 +18,23 @@ def create_task(db: Session, task_create: task_schema.TaskCreate) -> TaskModel:
     db.commit()
     db.refresh(task)
     return task
+
+
+def update_task(db: Session, id: int, task_update: task_schema.TaskUpdate) -> Optional[TaskModel]:
+    task = db.query(TaskModel).filter(TaskModel.id == id).first()
+    if task:
+        task.title = task_update.title
+        task.content = task_update.content
+        db.commit()
+        db.refresh(task)
+        return task
+    return None
+
+
+def delete_task(db: Session, id: int) -> Optional[TaskModel]:
+    task = db.query(TaskModel).filter(TaskModel.id == id).first()
+    if task:
+        db.delete(task)
+        db.commit()
+        return task
+    return None
