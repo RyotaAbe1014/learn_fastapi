@@ -3,13 +3,16 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
-
+from dotenv import load_dotenv
+import os
+# .envファイルの読み込み
+load_dotenv()
 
 # 接続したいDBの基本情報を設定
-user_name = "root"
-password = "Ryota1014"
-host = "localhost:3306"
-database_name = "my_task_db"
+user_name = os.environ["USERNAME"]
+password = os.environ["PASSWORD"]
+host = os.environ["HOST"]
+database_name = os.environ["DATABASE_NAME"]
 
 DATABASE = 'mysql://%s:%s@%s/%s?charset=utf8' % (
     user_name,
@@ -39,4 +42,3 @@ session = scoped_session(
 Base = declarative_base()
 # DB接続用のセッションクラス、インスタンスが作成されると接続する
 Base.query = session.query_property()
-
