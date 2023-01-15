@@ -9,4 +9,4 @@ class Task(Base):
 
     id = Column(Integer, primary_key=True)
     title = Column(String(30))
-    content = Column(String, nullable=True)
+    content = Column(String(255), nullable=True)
