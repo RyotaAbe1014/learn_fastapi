@@ -1,9 +1,9 @@
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, validator, Field
 import typing as t
 
 
 class TaskBase(BaseModel):
-    title: str
+    title: str = Field("title", max_length=30, min_length=1)
     content: t.Optional[str]
 
     @validator("title")
