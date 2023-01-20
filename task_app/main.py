@@ -9,8 +9,6 @@ app = FastAPI()
 app.router.route_class = CustomRoute
 
 
-
-
 @app.middleware("http")
 async def auth_middleware(request: Request, call_next):
     """
@@ -18,6 +16,10 @@ async def auth_middleware(request: Request, call_next):
     コメントを外すと、認証が必要なエンドポイントにアクセスすると
     FastAPIよりも先に401が返る
     """
+    if request.url.path.startswith("/docs") or request.url.path.startswith("/redoc") or request.url.path.startswith("/openapi.json") :
+        "openAPIドキュメントでは401を返すようにすると、ドキュメントそのものが開けなくなる対応"
+        response = await call_next(request)
+        return response
     if not request.headers.get("Authorization"):
         return JSONResponse(content={"message": "Not authorized"}, status_code=401)
     response = await call_next(request)
