@@ -42,3 +42,11 @@ session = scoped_session(
 Base = declarative_base()
 # DB接続用のセッションクラス、インスタンスが作成されると接続する
 Base.query = session.query_property()
+
+
+def get_db():
+    db = session()
+    try:
+        yield db
+    finally:
+        db.close()

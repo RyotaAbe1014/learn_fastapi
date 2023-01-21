@@ -5,3 +5,4 @@ fastapi
 alembic
 python-dotenv
 sqlalchemy_utils
+PyJWT
