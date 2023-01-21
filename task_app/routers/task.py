@@ -4,8 +4,7 @@ import schemas.task as TaskSchema
 import cruds.task as crud
 from db import session
 from settings.custom_route import CustomRoute
-router = APIRouter(prefix="/tasks", tags=["tasks"])
-router.route_class = CustomRoute
+router = APIRouter(prefix="/tasks", tags=["tasks"], route_class=CustomRoute)
 
 
 @router.get("/", response_model=List[TaskSchema.Task])
