@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Body, Path
 from typing import List
 import schemas.task as TaskSchema
 import cruds.task as crud
@@ -29,5 +29,5 @@ async def update_task(task: TaskSchema.TaskUpdate, task_id: int):
 
 
 @router.delete("/{task_id}",  response_model=TaskSchema.Task)
-async def delete_task(task_id: int):
+async def delete_task(task_id: int = Path(..., description="タスクID")):
     return crud.delete_task(session, task_id)
