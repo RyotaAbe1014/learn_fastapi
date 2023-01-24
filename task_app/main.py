@@ -6,7 +6,6 @@ from pydantic import BaseModel
 from auth.oauth2 import oauth2_scheme
 from auth import auth
 
-
 app = FastAPI()
 app.router.route_class = CustomRoute
 
