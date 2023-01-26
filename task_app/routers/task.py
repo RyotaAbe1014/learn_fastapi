@@ -20,12 +20,12 @@ async def create_task(task: TaskSchema.TaskCreate, token: str = Depends(oauth2_s
 
 
 @router.get("/{task_id}", response_model=TaskSchema.Task)
-async def detail_task(task_id: int, token: str = Depends(oauth2_scheme)):
+async def detail_task(task_id: int = Path(..., description="タスクID"), token: str = Depends(oauth2_scheme)):
     return crud.get_task(session, task_id)
 
 
 @router.put("/{task_id}", response_model=TaskSchema.Task)
-async def update_task(task: TaskSchema.TaskUpdate, task_id: int, token: str = Depends(oauth2_scheme)):
+async def update_task(task: TaskSchema.TaskUpdate, task_id: int = Path(..., description="タスクID"), token: str = Depends(oauth2_scheme)):
     return crud.update_task(session, task_id, task)
 
 
