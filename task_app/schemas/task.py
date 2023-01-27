@@ -17,6 +17,12 @@ class TaskBase(BaseModel):
         if len(value) > 255:
             raise ValueError("contentは255文字以内で入力してください。")
         return value
+    
+    @validator("title", "content")
+    def check_min_length(cls, value):
+        if len(value) < 1:
+            raise ValueError("titleとcontentは1文字以上で入力してください。")
+        return value
 
 
 class TaskCreate(TaskBase):
