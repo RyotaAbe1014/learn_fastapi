@@ -19,3 +19,14 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
+
+
+def decode_token(bearer_token):
+    try:
+        # 'Bearer'の文字列を取り除く
+        token = bearer_token.split(" ")[1]
+        # JWTのデコード
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return payload
+    except:
+        return None

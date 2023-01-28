@@ -22,3 +22,11 @@ def create_user(db: Session, user_create: UserSchema.UserCreate) -> UserModel:
     db.commit()
     db.refresh(user)
     return user
+
+
+def get_user_id(db: Session, username: str) -> Optional[int]:
+    user = db.query(UserModel).filter(UserModel.username == username).first()
+    return user.id if user else None
+
+def get_user(db: Session, user_id: Optional[int] = None) -> Optional[UserModel]:
+    return db.query(UserModel).filter(UserModel.id == user_id).first()

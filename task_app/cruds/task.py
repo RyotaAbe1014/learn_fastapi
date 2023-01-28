@@ -12,8 +12,9 @@ def get_task(db: Session, id: int) -> Optional[TaskModel]:
     return db.query(TaskModel).filter(TaskModel.id == id).first()
 
 
-def create_task(db: Session, task_create: task_schema.TaskCreate) -> TaskModel:
-    task = TaskModel(title=task_create.title, content=task_create.content)
+def create_task(db: Session, task_create: task_schema.TaskCreate, user_id: int) -> TaskModel:
+    task = TaskModel(title=task_create.title,
+                     content=task_create.content, user_id=user_id)
     db.add(task)
     db.commit()
     db.refresh(task)
