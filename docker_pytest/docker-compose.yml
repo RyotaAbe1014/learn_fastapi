@@ -1,0 +1,40 @@
+version: "3.3"
+
+services:
+  # MySQL
+  db:
+    container_name: "db"
+    # path配下のDockerfile読み込み
+    build: ./docker/db
+    # コンテナが落ちたら再起動する
+    restart: always
+    tty: true
+    environment:
+      MYSQL_DATABASE: sample_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password # ユーザのパスワード
+      MYSQL_ROOT_PASSWORD: password # ルートパスワード
+    ports:
+      - "3306:3306"
+    networks:
+      - pytest-net
+
+  # FastAPI
+  api:
+    # db起動後に立ち上げる
+    links:
+      - db
+    container_name: "api"
+    # path配下のDockerfile読み込み
+    build: ./docker/api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src:/usr/src/server
+    networks:
+      - pytest-net
+
+# コンテナ間で通信を行うためのネットワークブリッジ
+networks:
+  pytest-net:
+    driver: bridge

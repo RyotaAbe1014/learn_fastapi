@@ -1,0 +1,13 @@
+mysqlclient
+sqlalchemy
+uvicorn
+fastapi
+alembic
+python-dotenv
+sqlalchemy_utils
+PyJWT
+passlib
+python-jose
+python-multipart
+pytest
+httpx
