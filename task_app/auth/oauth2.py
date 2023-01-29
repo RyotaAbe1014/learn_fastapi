@@ -23,7 +23,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
 
 def decode_token(bearer_token):
     try:
-        # 'Bearer'の文字列を取り除く
+        # 'Bearer 'の文字列を取り除く
         token = bearer_token.split(" ")[1]
         # JWTのデコード
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
