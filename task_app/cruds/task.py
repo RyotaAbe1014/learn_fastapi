@@ -4,12 +4,12 @@ import schemas.task as task_schema
 from typing import List, Optional
 
 
-def get_tasks(db: Session) -> Optional[List[TaskModel]]:
-    return db.query(TaskModel).all()
+def get_tasks(db: Session, user_id: int) -> Optional[List[TaskModel]]:
+    return db.query(TaskModel).filter(TaskModel.user_id==user_id).all()
 
 
-def get_task(db: Session, id: int) -> Optional[TaskModel]:
-    return db.query(TaskModel).filter(TaskModel.id == id).first()
+def get_task(db: Session, id: int, user_id: int) -> Optional[TaskModel]:
+    return db.query(TaskModel).filter(TaskModel.id == id, TaskModel.user_id == user_id).first()
 
 
 def create_task(db: Session, task_create: task_schema.TaskCreate, user_id: int) -> TaskModel:
@@ -39,3 +39,8 @@ def delete_task(db: Session, id: int) -> Optional[TaskModel]:
         db.commit()
         return task
     return None
+
+
+def task_count(db: Session, user_id: int) -> int:
+    return db.query(TaskModel).filter(TaskModel.user_id==user_id).count()
+    
