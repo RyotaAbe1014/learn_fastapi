@@ -14,7 +14,10 @@ router = APIRouter(
 
 @router.get("/", response_model=List[TaskSchema.Task])
 async def list_tasks(request: Request):
-    return crud.get_tasks(session)
+    authorization_data = decode_token(request.headers["authorization"])
+    user_id: int = user_crud.get_user_id(
+        session, username=authorization_data["sub"])
+    return crud.get_tasks(session, user_id)
 
 
 @router.post("/")

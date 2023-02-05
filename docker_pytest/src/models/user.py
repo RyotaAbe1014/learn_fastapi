@@ -11,3 +11,4 @@ class User(Base):
     email = Column(String(30), unique=True)
     password = Column(String(255))
     is_active = Column(Boolean, default=True)
+    tasks = relationship("Task", back_populates="user")

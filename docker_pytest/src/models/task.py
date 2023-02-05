@@ -10,3 +10,4 @@ class Task(Base):
     title = Column(String(30))
     content = Column(String(255), nullable=True)
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
+    user = relationship("User", back_populates="tasks")

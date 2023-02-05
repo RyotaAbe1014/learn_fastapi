@@ -1,11 +1,14 @@
 from sqlalchemy.orm import Session
 from models.task import Task as TaskModel
+from models.user import User as UserModel
 import schemas.task as task_schema
 from typing import List, Optional
 
 
-def get_tasks(db: Session) -> Optional[List[TaskModel]]:
-    return db.query(TaskModel).all()
+def get_tasks(db: Session, user_id: int) -> Optional[List[TaskModel]]:
+    user = db.query(UserModel).filter(UserModel.id == user_id).first()
+    tasks = user.tasks
+    return tasks
 
 
 def get_task(db: Session, id: int) -> Optional[TaskModel]:
