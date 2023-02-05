@@ -6,8 +6,12 @@ from typing import List, Optional
 
 
 def get_tasks(db: Session, user_id: int) -> Optional[List[TaskModel]]:
-    user = db.query(UserModel).filter(UserModel.id == user_id).first()
-    tasks = user.tasks
+    tasks = db.query(TaskModel).filter(TaskModel.user_id == user_id).all()
+    # リレーションを貼るとこうすることもできる
+    # user = db.query(UserModel).filter(UserModel.id == user_id).first()
+    # tasks = user.tasks
+    # joinするとこうなる
+    # tasks = db.query(TaskModel).join(UserModel).filter(UserModel.id == user_id).all()
     return tasks
 
 
