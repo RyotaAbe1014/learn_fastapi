@@ -1,3 +1,4 @@
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 from models.user import User as UserModel
 import schemas.user as UserSchema
@@ -21,6 +22,7 @@ def create_user(db: Session, user_create: UserSchema.UserCreate) -> UserModel:
     db.add(user)
     db.commit()
     db.refresh(user)
+
     return user
 
 
@@ -30,3 +32,6 @@ def get_user_id(db: Session, username: str) -> Optional[int]:
 
 def get_user(db: Session, user_id: Optional[int] = None) -> Optional[UserModel]:
     return db.query(UserModel).filter(UserModel.id == user_id).first()
+
+def count_users(db: Session) -> int:
+    return db.query(func.count(UserModel.id)).scalar()
