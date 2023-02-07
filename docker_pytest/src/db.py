@@ -37,6 +37,8 @@ session = scoped_session(
     )
 )
 
+
+
 # modelで使用する
 Base = declarative_base()
 # DB接続用のセッションクラス、インスタンスが作成されると接続する
@@ -44,10 +46,13 @@ Base.query = session.query_property()
 
 
 def get_db():
-    db = session()
+    
     try:
+        db = session()
         yield db
+        # db.commit()
     except:
+        print("DB接続エラー")
         db.rollback()
     finally:
         db.close()

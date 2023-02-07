@@ -20,8 +20,9 @@ def create_user(db: Session, user_create: UserSchema.UserCreate) -> UserModel:
         email=user_create.email,
         password=Hash.get_password_hash(user_create.password))
     db.add(user)
-    db.commit()
-    db.refresh(user)
+    db.flush()
+    # db.commit()
+    # db.refresh(user)
 
     return user
 
