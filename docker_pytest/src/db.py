@@ -50,7 +50,7 @@ def get_db():
     try:
         db = session()
         yield db
-        # db.commit()
+        db.commit()
     except:
         print("DB接続エラー")
         db.rollback()
