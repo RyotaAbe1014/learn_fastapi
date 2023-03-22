@@ -1,10 +1,12 @@
 from fastapi import FastAPI, Request, HTTPException, Depends
 from fastapi.responses import JSONResponse
 from settings.custom_route import CustomRoute
-from routers import task, user
+from routers import task, user, test
 from pydantic import BaseModel
 from auth.oauth2 import oauth2_scheme
 from auth import auth
+
+
 
 app = FastAPI()
 app.router.route_class = CustomRoute
@@ -29,7 +31,7 @@ async def auth_middleware(request: Request, call_next):
 app.include_router(task.router)
 app.include_router(auth.router)
 app.include_router(user.router)
-
+app.include_router(test.router)
 
 
 """
